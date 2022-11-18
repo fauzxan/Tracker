@@ -1,0 +1,31 @@
+.App {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+
+	/*background: radial-gradient(
+		100% 56.66% at 0% 50%,
+		#ff7d7d 0%,
+		#c656ff 23.96%,
+		#b676ff 49.48%,
+		#a39bff 74.48%,
+		#feb2f6 86.98%,
+		#fef6b2 96.88%
+	);*/
+}
+.Enter {
+	position: center;
+	top: 10rem;
+
+	font-family: "Consolas";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 32px;
+	line-height: 37px;
+	text-align: center;
+
+	
+	
+}
+
+
