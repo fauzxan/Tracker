@@ -9,7 +9,9 @@ app.use(cors());
 app.post("/retrieveData/", (req, res) => {
 	const tickerSymbol = req.body.formValues.tickerSymbol;
 	const freq = req.body.formValues.freq;
-	var data = retrieveData(tickerSymbol, freq);
+	const from = req.body.formValues.from;
+	const to = req.body.formValues.to;
+	var data = retrieveData(tickerSymbol, freq, from, to);
 	data.then((response) => {
 		console.log("response inside: ",response)
 		res.status(200).send(response);

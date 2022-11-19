@@ -20,7 +20,6 @@ const rows = [
 ];
 
 export default function BasicTable(props) {
-  console.log("Inside basic table", props.data)
   const stockData = props.data;
   return (
     <TableContainer component={Paper}>
@@ -47,7 +46,7 @@ export default function BasicTable(props) {
               <TableCell component="th" scope="row">
                 {row.symbol}
               </TableCell>
-              <TableCell align="right">{row.date}</TableCell>
+              <TableCell align="right">{row.date.split("T")[0]}</TableCell>
               <TableCell align="right">{row.open}</TableCell>
               <TableCell align="right">{row.high}</TableCell>
               <TableCell align="right">{row.low}</TableCell>

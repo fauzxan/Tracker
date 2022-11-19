@@ -18,22 +18,6 @@ function App() {
 			<Container>
 				<div className="Enter">Enter Stock Name</div>
 				<LandingSearch />
-				{stockData.map((dt) => {
-					return (
-						<div>
-							<br />
-							Month: {dt.date.split("-")[1]}
-							<br />
-							Open: {dt.open}
-							<br />
-							Close: {dt.close}
-							<br />
-							High: {dt.high}
-							<br />
-							Low: {dt.low}
-						</div>
-					);
-				})}
 			</Container>
 		</div>
 	);

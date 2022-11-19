@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import Grid2 from "@mui/material/Grid";
-import Container from "@mui/material/Container";
 import { Button, TextField } from "@mui/material";
 import Axios from "axios";
 import BasicTable from "./BasicTable";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+
+import dayjs from "dayjs";
+
 const LandingSearch = () => {
-	const defaultValues = {
-		
-	};
+	const defaultValues = {};
 	const [formValues, setFormValues] = useState(defaultValues);
 	const handleTextInputChange = (event) => {
 		const { name, value } = event.target;
@@ -19,15 +22,15 @@ const LandingSearch = () => {
 			[name]: value,
 		});
 	};
-    const [freq, setFreq] = React.useState('');
+	const [freq, setFreq] = React.useState("");
 
-    const handleSelectChange = (event) => {
-        setFreq(event.target.value);
-        setFormValues({
+	const handleSelectChange = (event) => {
+		setFreq(event.target.value);
+		setFormValues({
 			...formValues,
-			"freq": event.target.value,
+			freq: event.target.value,
 		});
-      };
+	};
 
 	const [stockData, setStockData] = useState([]);
 
@@ -38,11 +41,14 @@ const LandingSearch = () => {
 			.then((response) => {
 				if (response.data.length == 0) alert("Enter a valid ticker symbol");
 				console.log("Response recieved from server");
-				setStockData(response.data);
+				setStockData(response.data.reverse());
 				console.log("StockData updated ");
 			})
 			.catch((err) => console.log(err));
 	};
+
+	const [dateTime, setDateTime] = useState(dayjs(""));
+    const [dateTimeTo, setDateTimeTo] = useState(dayjs(String(new Date())));
 
 	return (
 		<div>
@@ -57,19 +63,51 @@ const LandingSearch = () => {
 							onChange={handleTextInputChange}
 						/>
 					</Grid2>
-					<Grid2 xs={4}>
+					<Grid2 xs={4} sx={{ mt: 2 }}>
 						<Select
-							labelId="demo-simple-select-label"
-							id="demo-simple-select"
+							labelId="select-label"
+							id="select"
 							label="Frequency"
 							onChange={handleSelectChange}
-                            sx={{width:"100%", mt: 2}}
+							sx={{ width: "100%" }}
 						>
-							<MenuItem value={'m'}>Monthly</MenuItem>
-							<MenuItem value={'d'}>Daily</MenuItem>
-                            <MenuItem value={'m'}>Weekly</MenuItem>
-							<MenuItem value={'v'}>Dividends</MenuItem>
+							<MenuItem value={"m"}>Monthly</MenuItem>
+							<MenuItem value={"d"}>Daily</MenuItem>
+							<MenuItem value={"w"}>Weekly</MenuItem>
+							<MenuItem value={"v"}>Dividends</MenuItem>
 						</Select>
+					</Grid2>
+					<Grid2 xs={4} sx={{ mt: 2, ml: 1 }}>
+						<LocalizationProvider dateAdapter={AdapterDayjs}>
+							<DatePicker
+								label="From"
+								renderInput={(params) => <TextField {...params} />}
+								value={dateTime}
+								onChange={(newValue) => {
+									setDateTime(newValue);
+									setFormValues({
+										...formValues,
+										"from": dateTime,
+									});
+								}}
+							/>
+						</LocalizationProvider>
+					</Grid2>
+					<Grid2 xs={3} sx={{ mt: 2 }}>
+						<LocalizationProvider dateAdapter={AdapterDayjs} sx={{}}>
+							<DatePicker
+								label="To"
+								renderInput={(params) => <TextField {...params} />}
+								value={dateTimeTo}
+								onChange={(newValue) => {
+									setDateTimeTo(newValue);
+									setFormValues({
+										...formValues,
+										"to": dateTime,
+									});
+								}}
+							/>
+						</LocalizationProvider>
 					</Grid2>
 					<Grid2 xs={12}>
 						<Button variant="filled" type="submit" sx={{ width: "100%" }}>
