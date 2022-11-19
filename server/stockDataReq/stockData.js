@@ -8,12 +8,12 @@ const db = mysql.createConnection({
 	database: "stockdata",
 });
 
-const retrieveData = async () => {
+const retrieveData = async (tickerSymbol, freq) => {
 	const stockQuote = await data.historical(
 		{
-			symbol: "AAPL",
+			symbol: tickerSymbol,
 			from: "2022-01-01",
-			period: "m",
+			period: freq,
 			// period: 'd'  // 'd' (daily), 'w' (weekly), 'm' (monthly), 'v' (dividends only)
 		},
 		function (err, quotes) {

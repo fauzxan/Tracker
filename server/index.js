@@ -6,13 +6,14 @@ const cors = require("cors");
 app.use(express.json());
 app.use(cors());
 
-app.post("/retrieveData", (req, res) => {
-	console.log("req body: ",req.body);
-	//data = retrieveData();
-	//data.then((response) => {
-		//console.log("data from retrieval: \n", response);
-	//	res.status(200).json(response);
-	//});
+app.post("/retrieveData/", (req, res) => {
+	const tickerSymbol = req.body.formValues.tickerSymbol;
+	const freq = req.body.formValues.freq;
+	var data = retrieveData(tickerSymbol, freq);
+	data.then((response) => {
+		console.log("response inside: ",response)
+		res.status(200).send(response);
+	});
 });
 
 app.listen(5000, () => {
