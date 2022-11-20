@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Grid2 from "@mui/material/Grid";
 import { Button, TextField } from "@mui/material";
 import Axios from "axios";
@@ -13,7 +13,9 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 
 const LandingSearch = () => {
-	const defaultValues = {};
+	const defaultValues = {
+		
+	};
 	const [formValues, setFormValues] = useState(defaultValues);
 	const handleTextInputChange = (event) => {
 		const { name, value } = event.target;
@@ -39,7 +41,10 @@ const LandingSearch = () => {
 		console.log("Values", formValues);
 		Axios.post("http://localhost:5000/retrieveData/", { formValues })
 			.then((response) => {
-				if (response.data.length == 0) alert("Enter a valid ticker symbol");
+
+				console.log("From date:", formValues.from)
+				console.log("To date:", formValues.to)
+				if (response.data.length == 0) alert("Server returned null");
 				console.log("Response recieved from server");
 				setStockData(response.data.reverse());
 				console.log("StockData updated ");
@@ -48,7 +53,9 @@ const LandingSearch = () => {
 	};
 
 	const [dateTime, setDateTime] = useState(dayjs(""));
-    const [dateTimeTo, setDateTimeTo] = useState(dayjs(String(new Date())));
+    const [dateTimeTo, setDateTimeTo] = useState(dayjs(""));
+
+
 
 	return (
 		<div>
@@ -82,28 +89,30 @@ const LandingSearch = () => {
 							<DatePicker
 								label="From"
 								renderInput={(params) => <TextField {...params} />}
+								views={['year', 'month', 'day']}
 								value={dateTime}
 								onChange={(newValue) => {
 									setDateTime(newValue);
 									setFormValues({
 										...formValues,
-										"from": dateTime,
+										from: newValue,
 									});
 								}}
 							/>
 						</LocalizationProvider>
 					</Grid2>
 					<Grid2 xs={3} sx={{ mt: 2 }}>
-						<LocalizationProvider dateAdapter={AdapterDayjs} sx={{}}>
+						<LocalizationProvider dateAdapter={AdapterDayjs}>
 							<DatePicker
 								label="To"
 								renderInput={(params) => <TextField {...params} />}
+								views={['year', 'month', 'day']}
 								value={dateTimeTo}
 								onChange={(newValue) => {
 									setDateTimeTo(newValue);
 									setFormValues({
 										...formValues,
-										"to": dateTime,
+										to: newValue,
 									});
 								}}
 							/>

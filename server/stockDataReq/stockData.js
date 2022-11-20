@@ -9,8 +9,13 @@ const db = mysql.createConnection({
 	database: "stockdata",
 });
 
-const retrieveData = async (tickerSymbol, freq,from, to) => {
-	
+const retrieveData = async (tickerSymbol, freq, from, to) => {
+	if (from == "") {
+		from = new Date(1900, 01, 01);
+	}
+	if (to == "") {
+		to = new Date();
+	}
 	const stockQuote = await data.historical(
 		{
 			symbol: tickerSymbol,
@@ -20,12 +25,12 @@ const retrieveData = async (tickerSymbol, freq,from, to) => {
 			// period: 'd'  // 'd' (daily), 'w' (weekly), 'm' (monthly), 'v' (dividends only)
 		},
 		function (err, quotes) {
-			if (err) { 
+			if (err) {
 				console.log(err);
 			}
 		}
 	);
-	
+
 	return stockQuote;
 };
 
