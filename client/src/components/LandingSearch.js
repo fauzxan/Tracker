@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Grid2 from "@mui/material/Grid";
 import { Button, TextField } from "@mui/material";
 import Axios from "axios";
@@ -24,10 +24,8 @@ const LandingSearch = () => {
 			[name]: value,
 		});
 	};
-	const [freq, setFreq] = React.useState("");
 
 	const handleSelectChange = (event) => {
-		setFreq(event.target.value);
 		setFormValues({
 			...formValues,
 			freq: event.target.value,
@@ -44,7 +42,7 @@ const LandingSearch = () => {
 
 				console.log("From date:", formValues.from)
 				console.log("To date:", formValues.to)
-				if (response.data.length == 0) alert("Server returned null");
+				if (response.data.length === 0) alert("Server returned null");
 				console.log("Response recieved from server");
 				setStockData(response.data.reverse());
 				console.log("StockData updated ");
