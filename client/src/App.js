@@ -13,7 +13,7 @@ function App() {
 			<Container>
 				<div className="Enter">Enter Stock Name</div>
 				<LandingSearch />
-				<Indicators />
+				
 			</Container>
 			
 		</div>

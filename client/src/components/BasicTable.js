@@ -13,8 +13,8 @@ import Paper from "@mui/material/Paper";
 export default function BasicTable(props) {
 	const stockData = props.data;
 	return (
-		<TableContainer component={Paper}>
-			<Table sx={{ minWidth: 650, mt: 5 }} aria-label="simple table">
+		<TableContainer component={Paper} sx={{mt: 20}}>
+			<Table sx={{ minWidth: 650, mt: "1%" }} aria-label="simple table">
 				<TableHead>
 					<TableRow>
 						<TableCell>Ticker Name</TableCell>

@@ -5,17 +5,16 @@ import Axios from "axios";
 import BasicTable from "./BasicTable";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import Indicators from "./Indicators";
 
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 import dayjs from "dayjs";
-
+var SD = [];
 const LandingSearch = () => {
-	const defaultValues = {
-		
-	};
+	const defaultValues = {};
 	const [formValues, setFormValues] = useState(defaultValues);
 	const handleTextInputChange = (event) => {
 		const { name, value } = event.target;
@@ -39,21 +38,20 @@ const LandingSearch = () => {
 		console.log("Values", formValues);
 		Axios.post("http://localhost:5000/retrieveData/", { formValues })
 			.then((response) => {
-
-				console.log("From date:", formValues.from)
-				console.log("To date:", formValues.to)
+				console.log("From date:", formValues.from);
+				console.log("To date:", formValues.to);
 				if (response.data.length === 0) alert("Server returned null");
 				console.log("Response recieved from server");
 				setStockData(response.data.reverse());
+				SD = stockData;
 				console.log("StockData updated ");
 			})
 			.catch((err) => console.log(err));
+		
 	};
 
 	const [dateTime, setDateTime] = useState(dayjs(""));
-    const [dateTimeTo, setDateTimeTo] = useState(dayjs(""));
-
-
+	const [dateTimeTo, setDateTimeTo] = useState(dayjs(""));
 
 	return (
 		<div>
@@ -87,7 +85,7 @@ const LandingSearch = () => {
 							<DatePicker
 								label="From"
 								renderInput={(params) => <TextField {...params} />}
-								views={['year', 'month', 'day']}
+								views={["year", "month", "day"]}
 								value={dateTime}
 								onChange={(newValue) => {
 									setDateTime(newValue);
@@ -104,7 +102,7 @@ const LandingSearch = () => {
 							<DatePicker
 								label="To"
 								renderInput={(params) => <TextField {...params} />}
-								views={['year', 'month', 'day']}
+								views={["year", "month", "day"]}
 								value={dateTimeTo}
 								onChange={(newValue) => {
 									setDateTimeTo(newValue);
@@ -123,6 +121,7 @@ const LandingSearch = () => {
 					</Grid2>
 				</Grid2>
 			</form>
+			<Indicators data={formValues} />
 			<BasicTable data={stockData} />
 		</div>
 	);
