@@ -53,8 +53,11 @@ app.post("/indicatorParent/", (req, res) => {
 			req.body.to,
 			req.body.freq
 		);
-		res.send(data);
-		console.log("indicator parent loading successful");
+		data.then((response) => {
+			console.log(response);
+			res.status(200).json(response);
+			console.log("indicator parent loading successful");
+		});
 	}
 });
 

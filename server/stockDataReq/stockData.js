@@ -1,6 +1,5 @@
 const data = require("yahoo-finance");
 const mysql = require("mysql");
-const { quote } = require("yahoo-finance");
 
 const db = mysql.createConnection({
 	user: "root",
