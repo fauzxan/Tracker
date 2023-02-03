@@ -12,7 +12,7 @@ export default function Indicators(props) {
 	const [rsi, setRsi] = useState("");
 	useEffect(() => {
         const passing_value = props.data;
-		Axios.post("http://localhost:5000/caclRsi/", { passing_value })
+		Axios.post("http://localhost:5010/caclRsi/", { passing_value })
 			.then((response) => {
 				console.log("calc rsi", response);
                 setRsi(response.rsi)

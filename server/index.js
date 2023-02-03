@@ -50,8 +50,6 @@ app.post("/indicatorParent/", (req, res) => {
 		var data = loadData(
 			req.body.symbol,
 			req.body.from,
-			req.body.to,
-			req.body.freq
 		);
 		data.then((response) => {
 			console.log(response);
@@ -61,7 +59,7 @@ app.post("/indicatorParent/", (req, res) => {
 	}
 });
 
-app.listen(5000, () => {
+app.listen(5010, () => {
 	console.log(
 		"Information server runs perfectly and is brought to you by Yahoo Finance!"
 	);

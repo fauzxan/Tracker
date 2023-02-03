@@ -36,18 +36,27 @@ const LandingSearch = () => {
 	const sendData = (event) => {
 		event.preventDefault();
 		console.log("Values", formValues);
-		Axios.post("http://localhost:5000/retrieveData/", { formValues })
+		// Axios.post("http://localhost:5010/retrieveData/", { formValues })
+		// 	.then((response) => {
+		// 		console.log("Here");
+		// 		console.log("From date:", formValues.from);
+		// 		console.log("To date:", formValues.to);
+		// 		if (response.data.length === 0) alert("Server returned null");
+		// 		console.log("Response recieved from server");
+		// 		setStockData(response.data.reverse());
+		// 		SD = stockData;
+		// 		console.log("StockData updated ");
+		// 	})
+		// 	.catch((err) => console.log(err));
+		Axios.get("http://127.0.0.1:5000/")
 			.then((response) => {
-				console.log("From date:", formValues.from);
-				console.log("To date:", formValues.to);
-				if (response.data.length === 0) alert("Server returned null");
-				console.log("Response recieved from server");
-				setStockData(response.data.reverse());
-				SD = stockData;
-				console.log("StockData updated ");
+				console.log("here");
+				console.log(response.data);
+
 			})
-			.catch((err) => console.log(err));
-		
+			.catch((err) => {
+				console.log(err);
+			});
 	};
 
 	const [dateTime, setDateTime] = useState(dayjs(""));

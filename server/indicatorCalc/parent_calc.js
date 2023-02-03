@@ -18,14 +18,14 @@ function updateValues(res) {
 		volume.push(res[i].volume);
 	}
 }
-const loadData = async (symbol, from, to, freq) => {
+const loadData = async (symbol, from) => {
 	function data(callback) {
 		var d = yahooFinance.historical(
 			{
 				symbol: symbol,
 				from: from,
-				to: to,
-				freq: freq,
+				to: new Date(),
+				freq: "d",
 			},
 			function (error, quotes) {
 				if (error) {
